@@ -1,0 +1,22 @@
+{
+  "empire": {
+    "id": "empire",
+    "name": "Empire National Bank",
+    "accounts": {}
+  },
+  "royal": {
+    "id": "royal",
+    "name": "Royal Trust Bank",
+    "accounts": {}
+  },
+  "unity": {
+    "id": "unity",
+    "name": "Unity Federal Bank",
+    "accounts": {}
+  },
+  "capital": {
+    "id": "capital",
+    "name": "Capital Star Bank",
+    "accounts": {}
+  }
+}

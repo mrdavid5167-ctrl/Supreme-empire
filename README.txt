@@ -1,0 +1,1 @@
+Supreme Empire foundation directory. Full gameplay systems will be expanded here.

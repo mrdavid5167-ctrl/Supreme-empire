@@ -1,0 +1,25 @@
+{
+  "admin": [
+    "Owner",
+    "Chief Admin",
+    "Admin",
+    "Moderator"
+  ],
+  "crime": [
+    "Black Vipers",
+    "Red Kings",
+    "Shadow Syndicate",
+    "Iron Wolves",
+    "Night Owls",
+    "Golden Skulls"
+  ],
+  "organizations": [
+    "Army",
+    "Police",
+    "FSB",
+    "MIA",
+    "Hospital",
+    "Media",
+    "Government"
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "race",
+    "name": "\ud83c\udfce\ufe0f Racing",
+    "minute": 0,
+    "duration": 10
+  },
+  {
+    "id": "trial",
+    "name": "\ud83c\udfc3 Time Trial",
+    "minute": 15,
+    "duration": 10
+  },
+  {
+    "id": "basketball",
+    "name": "\ud83c\udfc0 Basketball Challenge",
+    "minute": 30,
+    "duration": 10
+  },
+  {
+    "id": "skill",
+    "name": "\ud83c\udfaf Skill Challenge",
+    "minute": 45,
+    "duration": 10
+  }
+]

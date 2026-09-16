@@ -1,0 +1,29 @@
+[
+  {
+    "id": "intro",
+    "name": "City Introduction",
+    "optional": true,
+    "reward": {
+      "money": 5000,
+      "exp": 100
+    }
+  },
+  {
+    "id": "delivery",
+    "name": "First Delivery",
+    "optional": true,
+    "reward": {
+      "money": 7500,
+      "exp": 150
+    }
+  },
+  {
+    "id": "explore",
+    "name": "Explore Supreme Empire",
+    "optional": true,
+    "reward": {
+      "money": 10000,
+      "exp": 200
+    }
+  }
+]

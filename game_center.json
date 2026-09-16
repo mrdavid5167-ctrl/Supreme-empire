@@ -1,0 +1,10 @@
+{
+  "schedule": "every hour",
+  "announcement_minutes_before": 5,
+  "podium": [
+    1,
+    2,
+    3
+  ],
+  "random_gambling": false
+}
