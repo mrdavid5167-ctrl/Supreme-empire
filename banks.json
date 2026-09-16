@@ -1,22 +1,29 @@
 {
-  "empire": {
-    "id": "empire",
-    "name": "Empire National Bank",
-    "accounts": {}
-  },
-  "royal": {
-    "id": "royal",
-    "name": "Royal Trust Bank",
-    "accounts": {}
-  },
-  "unity": {
-    "id": "unity",
-    "name": "Unity Federal Bank",
-    "accounts": {}
-  },
-  "capital": {
-    "id": "capital",
-    "name": "Capital Star Bank",
-    "accounts": {}
-  }
+  "version": 1,
+  "banks": [
+    {
+      "id": "SEB001",
+      "name": "Supreme National Bank",
+      "short_name": "SNB",
+      "starting_account_number": "1000000001"
+    },
+    {
+      "id": "SEB002",
+      "name": "Empire Trust Bank",
+      "short_name": "ETB",
+      "starting_account_number": "2000000001"
+    },
+    {
+      "id": "SEB003",
+      "name": "Royal Capital Bank",
+      "short_name": "RCB",
+      "starting_account_number": "3000000001"
+    },
+    {
+      "id": "SEB004",
+      "name": "Unity Commerce Bank",
+      "short_name": "UCB",
+      "starting_account_number": "4000000001"
+    }
+  ]
 }
