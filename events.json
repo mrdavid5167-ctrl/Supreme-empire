@@ -1,26 +1,22 @@
 [
   {
-    "id": "race",
-    "name": "\ud83c\udfce\ufe0f Racing",
-    "minute": 0,
-    "duration": 10
+    "id": "racing",
+    "name": "Racing Event",
+    "minute": 0
   },
   {
-    "id": "trial",
-    "name": "\ud83c\udfc3 Time Trial",
-    "minute": 15,
-    "duration": 10
+    "id": "time_trial",
+    "name": "Time Trial",
+    "minute": 15
   },
   {
     "id": "basketball",
-    "name": "\ud83c\udfc0 Basketball Challenge",
-    "minute": 30,
-    "duration": 10
+    "name": "Basketball Challenge",
+    "minute": 30
   },
   {
     "id": "skill",
-    "name": "\ud83c\udfaf Skill Challenge",
-    "minute": 45,
-    "duration": 10
+    "name": "Skill Challenge",
+    "minute": 45
   }
 ]
