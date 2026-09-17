@@ -1,72 +1,91 @@
-const http = require("http");
-const fs = require("fs");
-const path = require("path");
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
 
 const PORT = Number(process.env.PORT || 3000);
-const HOST = "0.0.0.0";
+const ROOT = __dirname;
 
-const banksPath = path.join(__dirname, "config", "banks.json");
-
-function loadBanks() {
-  if (!fs.existsSync(banksPath)) {
-    throw new Error(`Missing required file: ${banksPath}`);
-  }
-  const data = JSON.parse(fs.readFileSync(banksPath, "utf8"));
-  if (!Array.isArray(data.banks) || data.banks.length !== 4) {
-    throw new Error("config/banks.json must contain exactly 4 banks.");
-  }
-  return data;
+function readJSON(file, fallback) {
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, file), 'utf8')); }
+  catch (e) { return fallback; }
 }
 
-const banks = loadBanks();
+const banks = readJSON('config/banks.json', []);
+const events = readJSON('config/events.json', []);
+const factions = readJSON('config/factions.json', []);
+const missions = readJSON('config/missions.json', {optional:true});
 
-const server = http.createServer((req, res) => {
-  const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+const state = {
+  startedAt: new Date().toISOString(),
+  onlinePlayers: new Map(),
+  nextPlayerId: 1,
+  banks,
+  events,
+  factions,
+  missions
+};
 
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+function json(res, code, body) {
+  const data = JSON.stringify(body);
+  res.writeHead(code, {
+    'Content-Type':'application/json',
+    'Content-Length':Buffer.byteLength(data)
+  });
+  res.end(data);
+}
 
-  if (req.method === "OPTIONS") {
-    res.writeHead(204);
-    return res.end();
+function publicState() {
+  return {
+    name:'Supreme Empire',
+    status:'online',
+    onlinePlayers:state.onlinePlayers.size,
+    banks:state.banks.length,
+    factions:state.factions.length,
+    missionsOptional:true,
+    eventSchedule:state.events
+  };
+}
+
+function handle(req, res) {
+  const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+
+  if (url.pathname === '/' || url.pathname === '/health' || url.pathname === '/api/health') {
+    return json(res, 200, publicState());
   }
 
-  if (url.pathname === "/" || url.pathname === "/health" || url.pathname === "/api/health") {
-    return res.end(JSON.stringify({
-      ok: true,
-      status: "online",
-      service: "Supreme Empire Server",
-      banks: banks.banks.length
-    }));
+  if (url.pathname === '/api/status') {
+    return json(res, 200, {
+      ...publicState(),
+      uptimeSeconds: Math.floor(process.uptime()),
+      serverTime:new Date().toISOString()
+    });
   }
 
-  if (url.pathname === "/api/status") {
-    return res.end(JSON.stringify({
-      ok: true,
-      status: "online",
-      service: "Supreme Empire Server",
-      version: "1.0.0",
-      banks: banks.banks
-    }));
+  if (url.pathname === '/api/banks') {
+    return json(res, 200, {banks:state.banks});
   }
 
-  if (url.pathname === "/api/banks") {
-    return res.end(JSON.stringify({
-      ok: true,
-      banks: banks.banks
-    }));
+  if (url.pathname === '/api/factions') {
+    return json(res, 200, {factions:state.factions});
   }
 
-  res.writeHead(404);
-  res.end(JSON.stringify({
-    ok: false,
-    error: "Not found"
-  }));
-});
+  if (url.pathname === '/api/events') {
+    return json(res, 200, {events:state.events});
+  }
 
-server.listen(PORT, HOST, () => {
-  console.log(`Supreme Empire server listening on ${HOST}:${PORT}`);
-  console.log(`Loaded ${banks.banks.length} banks successfully.`);
+  if (url.pathname === '/api/missions') {
+    return json(res, 200, state.missions);
+  }
+
+  return json(res, 404, {error:'Not Found', service:'Supreme Empire'});
+}
+
+const server = http.createServer(handle);
+
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Supreme Empire server listening on 0.0.0.0:${PORT}`);
+  console.log(`Banks loaded: ${banks.length}`);
+  console.log(`Factions loaded: ${factions.length}`);
+  console.log(`Events loaded: ${events.length}`);
+  console.log('Missions optional: true');
 });
